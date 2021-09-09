@@ -90,10 +90,11 @@ namespace Trabalho2.Model
 
         public static double RetornaPontosP(string sequencia)
         {
-
+            string letrasSemRepetir = "";
             double pontos = 0;
-            if (LetraEstaNoCacaPalavra(sequencia, 0))
+            if (LetraEstaNoCacaPalavraERepete(sequencia, 0, letrasSemRepetir))
             {
+                letrasSemRepetir += sequencia[0];
                 pontos++;
             }
             else
@@ -102,10 +103,9 @@ namespace Trabalho2.Model
             }
             for (int i = 1; i < sequencia.Length; i++)
             {
-                if (LetraEstaNoCacaPalavra(sequencia, i))
+                if (LetraEstaNoCacaPalavraERepete(sequencia, i, letrasSemRepetir))
                 {
-
-
+                    letrasSemRepetir += sequencia[i];
                     if (sequencia[i] == 'A' || sequencia[i] == 'D')
                     {
                         if (VerificaSequencia(sequencia[i - 1], 1))
@@ -214,12 +214,19 @@ namespace Trabalho2.Model
             return Math.Floor(pontos / 2);
         }
 
-        public static bool LetraEstaNoCacaPalavra(string sequencia, int indice)
+        public static bool LetraEstaNoCacaPalavraERepete(string sequencia, int indice, string letraSemRepetir)
         {
             foreach (var item in Tabela)
             {
                 if (sequencia[indice] == Convert.ToChar(item))
                 {
+                    foreach (var item2 in letraSemRepetir)
+                    {
+                        if(sequencia[indice] == item2)
+                        {
+                            return false;
+                        }
+                    }
                     return true;
                 }
             }
