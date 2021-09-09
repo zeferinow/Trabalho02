@@ -35,20 +35,23 @@ namespace Trabalho2.View
         {
             PreencheTabela();
             Controller.LimpaHistorico();
-            teste.Items.Clear();
+            cbHistorico.Items.Clear();
             lblPontosP.Text = "0";
         }
 
         private void btnExe_Click(object sender, EventArgs e)
         {
             var sequencia = tbPalavraChave.Text.ToUpper();
-
-            if (Controller.Verifica(sequencia))
+            if (string.IsNullOrEmpty(tbPalavraChave.Text))
             {
-                teste.Items.Clear();
+                MessageBox.Show("Favor inserir uma letra");
+            }
+            else if (Controller.Verifica(sequencia))
+            {
+                cbHistorico.Items.Clear();
                 foreach (var item in Controller.RetornaLista())
                 {
-                    teste.Items.Add(item);
+                    cbHistorico.Items.Add(item);
                 }
                 lblPontosP.Text = Controller.RetornaPontosP(sequencia).ToString();
                 lblPontosG.Text = Controller.RetornaPontosG().ToString();

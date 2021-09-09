@@ -42,7 +42,7 @@ namespace Trabalho2.View
             this.tbC1 = new System.Windows.Forms.TextBox();
             this.tbC2 = new System.Windows.Forms.TextBox();
             this.tbC3 = new System.Windows.Forms.TextBox();
-            this.teste = new System.Windows.Forms.ComboBox();
+            this.cbHistorico = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblPontosP = new System.Windows.Forms.Label();
@@ -182,13 +182,13 @@ namespace Trabalho2.View
             this.tbC3.TabIndex = 13;
             this.tbC3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // teste
+            // cbHistorico
             // 
-            this.teste.FormattingEnabled = true;
-            this.teste.Location = new System.Drawing.Point(392, 43);
-            this.teste.Name = "teste";
-            this.teste.Size = new System.Drawing.Size(241, 39);
-            this.teste.TabIndex = 14;
+            this.cbHistorico.FormattingEnabled = true;
+            this.cbHistorico.Location = new System.Drawing.Point(392, 43);
+            this.cbHistorico.Name = "cbHistorico";
+            this.cbHistorico.Size = new System.Drawing.Size(241, 39);
+            this.cbHistorico.TabIndex = 14;
             // 
             // label1
             // 
@@ -245,7 +245,7 @@ namespace Trabalho2.View
             this.Controls.Add(this.lblPontosP);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.teste);
+            this.Controls.Add(this.cbHistorico);
             this.Controls.Add(this.tbC3);
             this.Controls.Add(this.tbC2);
             this.Controls.Add(this.tbC1);
@@ -285,7 +285,7 @@ namespace Trabalho2.View
         private System.Windows.Forms.TextBox tbC1;
         private System.Windows.Forms.TextBox tbC2;
         private System.Windows.Forms.TextBox tbC3;
-        private System.Windows.Forms.ComboBox teste;
+        private System.Windows.Forms.ComboBox cbHistorico;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblPontosP;
