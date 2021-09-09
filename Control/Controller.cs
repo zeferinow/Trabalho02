@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,26 +15,40 @@ namespace Trabalho2.Control
             return Funcao.ConverteNumerosParaLetras();
         }
 
-        public static bool Verifica(string sequencia)
+        /// <summary>
+        /// Verifica se a palavra não foi repetida
+        /// </summary>
+        /// <param name="palavraChave"></param>
+        /// <returns></returns>
+        public static bool Verifica(string palavraChave)
         {
 
             foreach (var item in Funcao.HistoricoDePalavras)
             {
-                if (item == sequencia)
+                if (item == palavraChave)
                 {
                     return false;
                 }
             }
-            Funcao.AddLista(sequencia);
+            Funcao.AddLista(palavraChave);
             return true;
         }
 
-        public static double RetornaPontosP(string sequencia)
+        /// <summary>
+        /// Retorna pontos conseguido na rodada
+        /// </summary>
+        /// <param name="palavraChave"></param>
+        /// <returns></returns>
+        public static double RetornaPontosP(string palavraChave)
         {
-            Funcao.PontosGeral += Funcao.RetornaPontosP(sequencia);
-            return Funcao.RetornaPontosP(sequencia);
+            Funcao.PontosGeral += Funcao.RetornaPontosP(palavraChave);
+            return Funcao.RetornaPontosP(palavraChave);
         }
 
+        /// <summary>
+        /// Retorna todos os pontos
+        /// </summary>
+        /// <returns></returns>
         public static double RetornaPontosG()
         {
             return Funcao.RetornaPontosG();
