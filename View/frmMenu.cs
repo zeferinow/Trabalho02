@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,10 +24,15 @@ namespace Trabalho2.View
         private void frmMenu_Load(object sender, EventArgs e)
         {
             PreencheTabela();
+            tbPalavraChave.MaxLength = 9;
         }
 
         private void btnSair_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Criadores:\r\nSara Letícia Faustino Machado" +
+                            "\r\nGabriel Zeferino" +
+                            "\r\nPaloma Souza Marian\r\n" +
+                            "\r\nMuito obrigado por desfrutar do sistema,\r\n Volte sempre!!!");
             Application.Exit();
         }
 
@@ -41,19 +46,20 @@ namespace Trabalho2.View
 
         private void btnExe_Click(object sender, EventArgs e)
         {
-            var sequencia = tbPalavraChave.Text.ToUpper();
+            var palavraChave = tbPalavraChave.Text.ToUpper();
+
             if (string.IsNullOrEmpty(tbPalavraChave.Text))
             {
                 MessageBox.Show("Favor inserir uma letra");
             }
-            else if (Controller.Verifica(sequencia))
+            else if (Controller.Verifica(palavraChave))
             {
                 cbHistorico.Items.Clear();
                 foreach (var item in Controller.RetornaLista())
                 {
                     cbHistorico.Items.Add(item);
                 }
-                lblPontosP.Text = Controller.RetornaPontosP(sequencia).ToString();
+                lblPontosP.Text = Controller.RetornaPontosP(palavraChave).ToString();
                 lblPontosG.Text = Controller.RetornaPontosG().ToString();
             }
             else
@@ -64,6 +70,9 @@ namespace Trabalho2.View
             tbPalavraChave.Clear();
         }
 
+        /// <summary>
+        /// Preenche a tabelas com as letras sortiadas de acordo com as regras
+        /// </summary>
         private void PreencheTabela()
         {
             List<string> letras = Controller.PreencheTabela();
