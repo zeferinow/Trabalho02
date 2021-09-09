@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,53 +9,54 @@ namespace Trabalho2.Model
 {
     public static class Funcao
     {
+        /// <summary>
+        /// Lista de letras da Tabela
+        /// </summary>
         public static List<string> Tabela = new List<string>();
 
+        /// <summary>
+        /// Lista de palavras do combo box
+        /// </summary>
         public static List<string> HistoricoDePalavras = new List<string>();
 
+        /// <summary>
+        /// Guarda todos os pontos
+        /// </summary>
         public static double PontosGeral = new double();
 
-        public static List<int> PreencheTabelaComNumeros()
-        {
-            List<int> letras = new List<int>();
-            Random ram = new Random();
+        static Random ram = new Random();
 
-            for (int i = 0; i < 4; i++)
-            {
-                var a = ram.Next(1, 3);
-                letras.Add(a);
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                var a = ram.Next(1, 4);
-                letras.Add(a);
-            }
-            return letras;
-        }
-
+        /// <summary>
+        /// Converte os numeros selecionados pelos randoms em letras na tabela
+        /// </summary>
+        /// <returns></returns>
         public static List<string> ConverteNumerosParaLetras()
         {
-            var numeros = PreencheTabelaComNumeros();
             List<string> letras = new List<string>();
-            letras.Add(Adiciona("A", "D"));
-            letras.Add(Adiciona("E", "F"));
-            letras.Add(Adiciona("B", "C"));
-            letras.Add(Adiciona("G", "I", "U"));
-            letras.Add(Adiciona("H", "J", "V"));
-            letras.Add(Adiciona("K", "L"));
-            letras.Add(Adiciona("M", "O", "Q"));
-            letras.Add(Adiciona("N", "T", "P"));
-            letras.Add(Adiciona("R", "S", "Z"));
+            letras.Add(AdicionaDois("A", "D"));
+            letras.Add(AdicionaDois("E", "F"));
+            letras.Add(AdicionaDois("B", "C"));
+            letras.Add(AdicionaTres("G", "I", "U"));
+            letras.Add(AdicionaTres("H", "J", "V"));
+            letras.Add(AdicionaDois("K", "L"));
+            letras.Add(AdicionaTres("M", "O", "Q"));
+            letras.Add(AdicionaTres("N", "T", "P"));
+            letras.Add(AdicionaTres("R", "S", "Z"));
             Tabela = letras;
             return letras;
         }
 
-        public static string Adiciona(string numero1, string numero2)
+        /// <summary>
+        /// Faz um random de 1 ou 2 para escolher a letra que tem apenas duas opções
+        /// </summary>
+        /// <param name="numero1"></param>
+        /// <param name="numero2"></param>
+        /// <returns></returns>
+        public static string AdicionaDois(string numero1, string numero2)
         {
-            var numeros = PreencheTabelaComNumeros();
+            var numeros = ram.Next(1, 3);
 
-            if (numeros[0] == 1)
+            if (numeros == 1)
             {
                 return numero1;
             }
@@ -65,15 +66,22 @@ namespace Trabalho2.Model
             }
         }
 
-        public static string Adiciona(string numero1, string numero2, string numero3)
+        /// <summary>
+        /// Faz um random de 1 ou 2 ou 3 para escolher as letras que tem apenas três opções
+        /// </summary>
+        /// <param name="numero1"></param>
+        /// <param name="numero2"></param>
+        /// <param name="numero3"></param>
+        /// <returns></returns>
+        public static string AdicionaTres(string numero1, string numero2, string numero3)
         {
-            var numeros = PreencheTabelaComNumeros();
+            var numeros = ram.Next(1, 4);
 
-            if (numeros[0] == 1)
+            if (numeros == 1)
             {
                 return numero1;
             }
-            else if (numeros[0] == 2)
+            else if (numeros == 2)
             {
                 return numero2;
             }
@@ -83,32 +91,41 @@ namespace Trabalho2.Model
             }
         }
 
+        /// <summary>
+        /// Adiciona a palavra na lista
+        /// </summary>
+        /// <param name="a"></param>
         public static void AddLista(string a)
         {
             HistoricoDePalavras.Add(a);
         }
 
-        public static double RetornaPontosP(string sequencia)
+        /// <summary>
+        /// Retorna os pontos da rodada atual e verifica as letras
+        /// </summary>
+        /// <param name="palavraChave"></param>
+        /// <returns></returns>
+        public static double RetornaPontosP(string palavraChave)
         {
             string letrasSemRepetir = "";
             double pontos = 0;
-            if (LetraEstaNoCacaPalavraERepete(sequencia, 0, letrasSemRepetir))
+            if (LetraEstaNoCacaPalavraERepete(palavraChave, 0, letrasSemRepetir))
             {
-                letrasSemRepetir += sequencia[0];
+                letrasSemRepetir += palavraChave[0];
                 pontos++;
             }
             else
             {
                 return 0;
             }
-            for (int i = 1; i < sequencia.Length; i++)
+            for (int i = 1; i < palavraChave.Length; i++)
             {
-                if (LetraEstaNoCacaPalavraERepete(sequencia, i, letrasSemRepetir))
+                if (LetraEstaNoCacaPalavraERepete(palavraChave, i, letrasSemRepetir))
                 {
-                    letrasSemRepetir += sequencia[i];
-                    if (sequencia[i] == 'A' || sequencia[i] == 'D')
+                    letrasSemRepetir += palavraChave[i];
+                    if (palavraChave[i] == 'A' || palavraChave[i] == 'D')
                     {
-                        if (VerificaSequencia(sequencia[i - 1], 1))
+                        if (ConfereLetraAoRedor(palavraChave[i - 1], 1))
                         {
                             pontos++;
                         }
@@ -117,9 +134,9 @@ namespace Trabalho2.Model
                             return Math.Floor(pontos / 2);
                         }
                     }
-                    else if (sequencia[i] == 'E' || sequencia[i] == 'F')
+                    else if (palavraChave[i] == 'E' || palavraChave[i] == 'F')
                     {
-                        if (VerificaSequencia(sequencia[i - 1], 2))
+                        if (ConfereLetraAoRedor(palavraChave[i - 1], 2))
                         {
                             pontos++;
                         }
@@ -128,9 +145,9 @@ namespace Trabalho2.Model
                             return Math.Floor(pontos / 2);
                         }
                     }
-                    else if (sequencia[i] == 'B' || sequencia[i] == 'C')
+                    else if (palavraChave[i] == 'B' || palavraChave[i] == 'C')
                     {
-                        if (VerificaSequencia(sequencia[i - 1], 3))
+                        if (ConfereLetraAoRedor(palavraChave[i - 1], 3))
                         {
                             pontos++;
                         }
@@ -139,9 +156,9 @@ namespace Trabalho2.Model
                             return Math.Floor(pontos / 2);
                         }
                     }
-                    else if (sequencia[i] == 'G' || sequencia[i] == 'I' || sequencia[i] == 'U')
+                    else if (palavraChave[i] == 'G' || palavraChave[i] == 'I' || palavraChave[i] == 'U')
                     {
-                        if (VerificaSequencia(sequencia[i - 1], 4))
+                        if (ConfereLetraAoRedor(palavraChave[i - 1], 4))
                         {
                             pontos++;
                         }
@@ -150,9 +167,9 @@ namespace Trabalho2.Model
                             return Math.Floor(pontos / 2);
                         }
                     }
-                    else if (sequencia[i] == 'H' || sequencia[i] == 'J' || sequencia[i] == 'V')
+                    else if (palavraChave[i] == 'H' || palavraChave[i] == 'J' || palavraChave[i] == 'V')
                     {
-                        if (VerificaSequencia(sequencia[i - 1], 5))
+                        if (ConfereLetraAoRedor(palavraChave[i - 1], 5))
                         {
                             pontos++;
                         }
@@ -161,9 +178,9 @@ namespace Trabalho2.Model
                             return Math.Floor(pontos / 2);
                         }
                     }
-                    else if (sequencia[i] == 'K' || sequencia[i] == 'L')
+                    else if (palavraChave[i] == 'K' || palavraChave[i] == 'L')
                     {
-                        if (VerificaSequencia(sequencia[i - 1], 6))
+                        if (ConfereLetraAoRedor(palavraChave[i - 1], 6))
                         {
                             pontos++;
                         }
@@ -172,9 +189,9 @@ namespace Trabalho2.Model
                             return Math.Floor(pontos / 2);
                         }
                     }
-                    else if (sequencia[i] == 'M' || sequencia[i] == 'O' || sequencia[i] == 'Q')
+                    else if (palavraChave[i] == 'M' || palavraChave[i] == 'O' || palavraChave[i] == 'Q')
                     {
-                        if (VerificaSequencia(sequencia[i - 1], 7))
+                        if (ConfereLetraAoRedor(palavraChave[i - 1], 7))
                         {
                             pontos++;
                         }
@@ -183,9 +200,9 @@ namespace Trabalho2.Model
                             return Math.Floor(pontos / 2);
                         }
                     }
-                    else if (sequencia[i] == 'N' || sequencia[i] == 'T' || sequencia[i] == 'P')
+                    else if (palavraChave[i] == 'N' || palavraChave[i] == 'T' || palavraChave[i] == 'P')
                     {
-                        if (VerificaSequencia(sequencia[i - 1], 8))
+                        if (ConfereLetraAoRedor(palavraChave[i - 1], 8))
                         {
                             pontos++;
                         }
@@ -194,9 +211,9 @@ namespace Trabalho2.Model
                             return Math.Floor(pontos / 2);
                         }
                     }
-                    else if (sequencia[i] == 'R' || sequencia[i] == 'S' || sequencia[i] == 'Z')
+                    else if (palavraChave[i] == 'R' || palavraChave[i] == 'S' || palavraChave[i] == 'Z')
                     {
-                        if (VerificaSequencia(sequencia[i - 1], 9))
+                        if (ConfereLetraAoRedor(palavraChave[i - 1], 9))
                         {
                             pontos++;
                         }
@@ -214,15 +231,24 @@ namespace Trabalho2.Model
             return Math.Floor(pontos / 2);
         }
 
-        public static bool LetraEstaNoCacaPalavraERepete(string sequencia, int indice, string letraSemRepetir)
+        /// <summary>
+        /// Verifica se letra esta no caça-palavra e se esta repetida
+        /// </summary>
+        /// <param name="palavraChave"></param>
+        /// <param name="indice"></param>
+        /// <param name="letraSemRepetir"></param>
+        /// <returns></returns>
+        public static bool LetraEstaNoCacaPalavraERepete(string palavraChave, int indice, string letraSemRepetir)
         {
+            //verifica se a letra esta na tabala
             foreach (var item in Tabela)
             {
-                if (sequencia[indice] == Convert.ToChar(item))
+                if (palavraChave[indice] == Convert.ToChar(item))
                 {
+                    //verifica se a letra esta repetida
                     foreach (var item2 in letraSemRepetir)
                     {
-                        if(sequencia[indice] == item2)
+                        if(palavraChave[indice] == item2)
                         {
                             return false;
                         }
@@ -233,13 +259,23 @@ namespace Trabalho2.Model
             return false;
         }
 
+        /// <summary>
+        /// Retornas todos os pontos que o jogador possui
+        /// </summary>
+        /// <returns></returns>
         public static double RetornaPontosG()
         {
             var pontos = PontosGeral;
             return pontos;
         }
 
-        public static bool VerificaSequencia(char letra, int posicao)
+        /// <summary>
+        /// verifica se a letra anterior está ao redor da letra atual
+        /// </summary>
+        /// <param name="letra"></param>
+        /// <param name="posicao"></param>
+        /// <returns></returns>
+        public static bool ConfereLetraAoRedor(char letra, int posicao)
         {
             string slot = LetrasAoRedor(posicao);
 
@@ -253,6 +289,11 @@ namespace Trabalho2.Model
             return false;
         }
 
+        /// <summary>
+        /// Letras ao redor da palavra atual a ser verificada
+        /// </summary>
+        /// <param name="posicao"></param>
+        /// <returns></returns>
         public static string LetrasAoRedor(int posicao)
         {
             string slot = "ERRO";
@@ -290,6 +331,9 @@ namespace Trabalho2.Model
             return slot;
         }
 
+        /// <summary>
+        /// Limpa todas as palavras do combo box cbHistorico
+        /// </summary>
         public static void LimpaHistorico()
         {
             HistoricoDePalavras.Clear();
