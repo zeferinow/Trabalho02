@@ -21,6 +21,6 @@ O Menu:
 
 Antes das opções, deve estar mostrando o caça palavras, Menu:
 
-– Tentar uma palavra: simplesmente peça uma palavra, e então faça a busca no caça palavras e diga quantos pontos foram gerados e então, adicione essa pontuação no jogador que esta jogando. (caso o jogador insira a mesma palavra, não faça a busca e avise que a palavra ja foi inserida)
-– Gerar um novo caça-palavras: Gere um novo caça palavras. (resete todas as palavras até então inseridas)
-– Encerrar Programa : Encerre o programa e agradeça
+- Tentar uma palavra: simplesmente peça uma palavra, e então faça a busca no caça palavras e diga quantos pontos foram gerados e então, adicione essa pontuação no jogador que esta jogando. (caso o jogador insira a mesma palavra, não faça a busca e avise que a palavra ja foi inserida)
+- Gerar um novo caça-palavras: Gere um novo caça palavras. (resete todas as palavras até então inseridas)
+- Encerrar Programa : Encerre o programa e agradeça
